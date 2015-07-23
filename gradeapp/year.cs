@@ -14,5 +14,17 @@ namespace gradeapp
         {
             subjects = new List<subject>();
         }
+        public void addsubject(subject item)
+        {
+            subjects.Add(item);
+        }
+        public void removesubject(int index)
+        {
+            subjects.RemoveAt(index);
+        }
+        public int getsize()
+        {
+            return subjects.Count;
+        }
     }
 }

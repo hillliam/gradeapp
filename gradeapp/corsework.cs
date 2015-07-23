@@ -3,12 +3,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace gradeapp
 {
     class corsework
     {
-        private int overallvalue; // the vale of the exam in the subject
+        public int overallvalue // the vale of the exam in the subject
+        {
+            get
+            {
+                return overallvalue;
+            }
+            set
+            {
+                overallvalue = value;
+            }
+        }
         private float marks; // the marks the subject is worth
         private float totalmarks; // the total marks that can be earned
         private DateTime duedate; // the date the exam is begin
@@ -25,44 +36,6 @@ namespace gradeapp
             marks = mark;
             totalmarks = totalmark;
         }
-
-        public void setoverallvalue(int value)
-        {
-            overallvalue = value;
-        }
-
-        public int getoverallvalue()
-        {
-            return overallvalue;
-        }
-
-        public void setmarks(float value)
-        {
-            marks = value;
-        }
-
-        public float getmarks()
-        {
-            return marks;
-        }
-
-        public void settotalmarks(float value)
-        {
-            totalmarks = value;
-        }
-
-        public float gettotalmarks()
-        {
-            return totalmarks;
-        }
-        public DateTime getduedate()
-        {
-            return duedate;
-        }
-        public void setduedate(DateTime due)
-        {
-            duedate = due;
-        }
         public TimeSpan calculateremaningtime()
         {
             return (duedate - DateTime.Now);
@@ -78,6 +51,19 @@ namespace gradeapp
         {
                 return (calculatecorseworkpercentage() / 100) * overallvalue;
         }
-
+        public void load(ref StreamReader reader)
+        {
+            overallvalue = int.Parse(reader.ReadLine());
+            marks = float.Parse(reader.ReadLine());
+            totalmarks = float.Parse(reader.ReadLine());
+            duedate = DateTime.Parse(reader.ReadLine());
+        }
+        public void save(ref StreamWriter writer)
+        {
+            writer.WriteLine(overallvalue);
+            writer.WriteLine(marks);
+            writer.WriteLine(totalmarks);
+            writer.WriteLine(duedate.ToString());
+        }
     }
 }
