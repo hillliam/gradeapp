@@ -9,6 +9,17 @@ namespace gradeapp
 {
     class exam : List<exam>
     {
+        public string name // the name of the exam for the user
+        {
+            get
+            {
+                return name;
+            }
+            set
+            {
+                name = value;
+            }
+        }
         public int overallvalue // the vale of the exam in the subject
         {
             get
@@ -64,7 +75,7 @@ namespace gradeapp
                 duration = value;
             }
         }
-        public exam(int value = 0, float mark = 0, float totalmark = 0)
+        public exam(string name = "", int value = 0, float mark = 0, float totalmark = 0)
         {
             value = overallvalue;
             marks = mark;
@@ -72,21 +83,21 @@ namespace gradeapp
             startdate = DateTime.Now;
             duration = TimeSpan.Zero;
         }
-        public exam(DateTime start, int value = 0, float mark = 0, float totalmark = 0)
+        public exam(DateTime start, string name = "", int value = 0, float mark = 0, float totalmark = 0)
         {
             startdate = start;
             value = overallvalue;
             marks = mark;
             totalmarks = totalmark;
         }
-        public exam(TimeSpan time, int value = 0, float mark = 0, float totalmark = 0)
+        public exam(TimeSpan time, string name = "", int value = 0, float mark = 0, float totalmark = 0)
         {
             duration = time;
             value = overallvalue;
             marks = mark;
             totalmarks = totalmark;
         }
-        public exam(DateTime start, TimeSpan time, int value = 0, float mark = 0, float totalmark = 0)
+        public exam(DateTime start, TimeSpan time, string name = "", int value = 0, float mark = 0, float totalmark = 0)
         {
             startdate = start;
             duration = time;
@@ -120,6 +131,13 @@ namespace gradeapp
             writer.WriteLine(totalmarks);
             writer.WriteLine(startdate.ToString());
             writer.WriteLine(duration.ToString());
+        }
+        public string print()
+        {
+            if (startdate > DateTime.Now)
+                return name + " " + overallvalue + " " + startdate + " " + duration;
+            else
+                return name + " " + overallvalue + " " + startdate + " " + calculateexampercentage() + calculateoverallpercentage();
         }
     }
 }
