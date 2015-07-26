@@ -35,6 +35,14 @@ namespace gradeapp
         {
             corseworks.Add(item);
         }
+        public void removecoursework(int index)
+        {
+            corseworks.RemoveAt(index);
+        }
+        public void removeexam(int index)
+        {
+            exams.RemoveAt(index);
+        }
         public exam getexam(int index)
         {
             return exams[index];

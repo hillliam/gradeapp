@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
+using Microsoft.VisualBasic;
 
 namespace gradeapp
 {
@@ -22,11 +23,15 @@ namespace gradeapp
         {
             InitializeComponent();
             years = new List<year>();
+            selectedyear = -1;
+            selectedsubject = -1;
+            selectedexam = -1;
+            selectedcoursework = -1;
         }
 
         private void button5_Click(object sender, EventArgs e)
         {//load subjects of that year
-            if (listBox1.SelectedIndex != 0)
+            if (selectedsubject != -1)
             {
                 listBox2.Items.Clear();
                 for (int i = 0; i != years[listBox1.SelectedIndex].getsize();i++)
@@ -40,30 +45,44 @@ namespace gradeapp
 
         private void button6_Click(object sender, EventArgs e)
         {// create new year
-            years.Add(new year());
+            year a = new year();
+            a.name = (years.Count + 1).ToString();
+            years.Add(a);
+            updateyear();
         }
 
         private void button7_Click(object sender, EventArgs e)
         {// remove year
-            if (listBox1.SelectedIndex != 0)
-                years.RemoveAt(listBox1.SelectedIndex);
+            if (selectedyear != -1)
+            {
+                years.RemoveAt(selectedyear);
+                updateyear();
+            }
             else
                 MessageBox.Show("please select a year");
         }
 
         private void button8_Click(object sender, EventArgs e)
         {// load exams and coursework of that subject
-            
+            if (selectedsubject != -1)
+            {
+                updateexams();
+                updatecoursework();
+            }
+            else
+                MessageBox.Show("please select a subject");
         }
 
         private void button9_Click(object sender, EventArgs e)
         {// add subject
-            years[listBox1.SelectedIndex].addsubject(new subject());
+            years[selectedyear].addsubject(new subject());
+            updatesubjects();
         }
 
         private void button10_Click(object sender, EventArgs e)
         {
-            years[listBox1.SelectedIndex].removesubject(listBox2.SelectedIndex);
+            years[selectedyear].removesubject(selectedsubject);
+            updatesubjects();
         }
 
         private void button11_Click(object sender, EventArgs e)
@@ -73,12 +92,14 @@ namespace gradeapp
 
         private void button13_Click(object sender, EventArgs e)
         {// add coursework
-            
+            years[selectedyear].getsubject(selectedsubject).addcoursework(new corsework());
+            updatecoursework();
         }
 
         private void button14_Click(object sender, EventArgs e)
         { // remove coursework
-
+            years[selectedyear].getsubject(selectedsubject).removecoursework(selectedcoursework);
+            updatecoursework();
         }
 
         private void button12_Click(object sender, EventArgs e)
@@ -88,17 +109,19 @@ namespace gradeapp
 
         private void button15_Click(object sender, EventArgs e)
         { // add exam
-
+            years[selectedyear].getsubject(selectedsubject).addexam(new exam());
+            updateexams();
         }
 
         private void button16_Click(object sender, EventArgs e)
         { // remove exam
-
+            years[selectedyear].getsubject(selectedsubject).removeexam(selectedexam);
+            updateexams();
         }
 
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (listBox1.SelectedIndex != 0)
+            if (listBox1.SelectedIndex >= 0 && listBox1.SelectedIndex < years.Count)
                 selectedyear = listBox1.SelectedIndex;
             else
                 selectedyear = -1;
@@ -130,7 +153,7 @@ namespace gradeapp
 
         private void listBox2_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (listBox2.SelectedIndex != 0)
+            if (listBox2.SelectedIndex >= 0 && listBox2.SelectedIndex < years[selectedyear].getsize())
                 selectedsubject = listBox2.SelectedIndex;
             else
                 selectedsubject = -1;
@@ -138,12 +161,18 @@ namespace gradeapp
 
         private void listBox3_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            if (listBox3.SelectedIndex >= 0 && listBox3.SelectedIndex < years[selectedyear].getsubject(selectedsubject).courseworksize())
+                selectedcoursework = listBox3.SelectedIndex;
+            else
+                selectedcoursework = -1;
         }
 
         private void listBox4_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            if (listBox4.SelectedIndex >= 0 && listBox4.SelectedIndex < years[selectedyear].getsubject(selectedsubject).examssize())
+                selectedexam = listBox4.SelectedIndex;
+            else
+                selectedexam = -1;
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -159,6 +188,7 @@ namespace gradeapp
                     c.loadsubjects(ref a);
                     years.Add(c);
                 }
+                updateyear();
             }
         }
 
