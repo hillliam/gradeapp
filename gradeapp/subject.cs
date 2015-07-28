@@ -9,17 +9,7 @@ namespace gradeapp
 {
     class subject
     {
-        public string name
-        {
-            get 
-            {
-                return name;
-            }
-            set 
-            {
-                name = value;
-            }
-        }
+        private string name;
         private List<corsework> corseworks;
         private List<exam> exams;
         public subject()
@@ -131,6 +121,14 @@ namespace gradeapp
                 a[i] = corseworks[i].print();
             }
             return a;
+        }
+        public void setname(string newname)
+        {
+            name = newname;
+        }
+        public string getname()
+        {
+            return name;
         }
     }
 }

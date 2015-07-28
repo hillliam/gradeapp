@@ -9,72 +9,12 @@ namespace gradeapp
 {
     class exam : List<exam>
     {
-        public string name // the name of the exam for the user
-        {
-            get
-            {
-                return name;
-            }
-            set
-            {
-                name = value;
-            }
-        }
-        public int overallvalue // the vale of the exam in the subject
-        {
-            get
-            {
-                return overallvalue;
-            }
-            set
-            {
-                overallvalue = value;
-            }
-        }
-        public float marks // the marks the subject is worth
-        {
-            get
-            {
-                return marks;
-            }
-            set
-            {
-                marks = value;
-            }
-        }
-        public float totalmarks // the total marks that can be earned
-        {
-            get
-            {
-                return totalmarks;
-            }
-            set
-            {
-                totalmarks = value;
-            }
-        }
-        public DateTime startdate // the date the exam is begin
-        {
-            get
-            {
-                return startdate;
-            }
-            set
-            {
-                startdate = value;
-            }
-        }
-        public TimeSpan duration // the duration of the exam
-        {
-            get
-            {
-                return duration;
-            }
-            set
-            {
-                duration = value;
-            }
-        }
+        private string name; // the name of the exam for the user
+        private int overallvalue; // the vale of the exam in the subject
+        private float marks; // the marks the subject is worth
+        private float totalmarks; // the total marks that can be earned
+        private DateTime startdate; // the date the exam is begin
+        private TimeSpan duration; // the duration of the exam
         public exam(string name = "", int value = 0, float mark = 0, float totalmark = 0)
         {
             value = overallvalue;
@@ -138,6 +78,54 @@ namespace gradeapp
                 return name + " " + overallvalue + " " + startdate + " " + duration;
             else
                 return name + " " + overallvalue + " " + startdate + " " + calculateexampercentage() + calculateoverallpercentage();
+        }
+        public void setname(string newname)
+        {
+            name = newname;
+        }
+        public string getname()
+        {
+            return name;
+        }
+        public void setoverallvalue(int newmark)
+        {
+            overallvalue = newmark;
+        }
+        public int getoverallvalue()
+        {
+            return overallvalue;
+        }
+        public void settotalmarks(float newmarks)
+        {
+            totalmarks = newmarks;
+        }
+        public float gettotalmarks()
+        {
+            return totalmarks;
+        }
+        public float getmarks()
+        {
+            return marks;
+        }
+        public void setmarks(float newmarks)
+        {
+            marks = newmarks;
+        }
+        public DateTime getstartdate()
+        {
+            return startdate;
+        }
+        public void setstartdate(DateTime newstart)
+        {
+            startdate = newstart;
+        }
+        public TimeSpan getduration()
+        {
+            return duration;
+        }
+        public void setduration(TimeSpan newduration)
+        {
+            duration = newduration;
         }
     }
 }

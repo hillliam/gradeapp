@@ -31,14 +31,8 @@ namespace gradeapp
 
         private void button5_Click(object sender, EventArgs e)
         {//load subjects of that year
-            if (selectedsubject != -1)
-            {
-                listBox2.Items.Clear();
-                for (int i = 0; i != years[listBox1.SelectedIndex].getsize();i++)
-                {
-                    listBox2.Items.Add(years[listBox1.SelectedIndex].getsubject(i).name);
-                }
-            }
+            if (selectedyear != -1)
+                years[selectedyear].setname(Interaction.InputBox("please enter a new name for year", "year name", years.Count.ToString()));
             else
                 MessageBox.Show("please select a year");
         }
@@ -46,7 +40,7 @@ namespace gradeapp
         private void button6_Click(object sender, EventArgs e)
         {// create new year
             year a = new year();
-            a.name = (years.Count + 1).ToString();
+            a.setname(Interaction.InputBox("please enter a name for year", "year name", years.Count.ToString()));
             years.Add(a);
             updateyear();
         }
@@ -66,8 +60,7 @@ namespace gradeapp
         {// load exams and coursework of that subject
             if (selectedsubject != -1)
             {
-                updateexams();
-                updatecoursework();
+                years[selectedyear].getsubject(selectedsubject).setname(Interaction.InputBox("please enter a new name for subject", "subject name", years[selectedyear].getsize().ToString()));
             }
             else
                 MessageBox.Show("please select a subject");
@@ -75,8 +68,15 @@ namespace gradeapp
 
         private void button9_Click(object sender, EventArgs e)
         {// add subject
-            years[selectedyear].addsubject(new subject());
-            updatesubjects();
+            if (selectedyear != -1)
+            {
+                subject a = new subject();
+                a.setname(Interaction.InputBox("please enter a name for subject", "subject name", years[selectedyear].getsize().ToString()));
+                years[selectedyear].addsubject(a);
+                updatesubjects();
+            }
+            else
+                MessageBox.Show("please select a subject");
         }
 
         private void button10_Click(object sender, EventArgs e)
@@ -92,7 +92,8 @@ namespace gradeapp
 
         private void button13_Click(object sender, EventArgs e)
         {// add coursework
-            years[selectedyear].getsubject(selectedsubject).addcoursework(new corsework());
+            corsework a = new corsework();
+            years[selectedyear].getsubject(selectedsubject).addcoursework(a);
             updatecoursework();
         }
 
@@ -109,7 +110,8 @@ namespace gradeapp
 
         private void button15_Click(object sender, EventArgs e)
         { // add exam
-            years[selectedyear].getsubject(selectedsubject).addexam(new exam());
+            exam a = new exam();
+            years[selectedyear].getsubject(selectedsubject).addexam(a);
             updateexams();
         }
 
@@ -122,7 +124,10 @@ namespace gradeapp
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (listBox1.SelectedIndex >= 0 && listBox1.SelectedIndex < years.Count)
+            {
                 selectedyear = listBox1.SelectedIndex;
+                updatesubjects();
+            }
             else
                 selectedyear = -1;
         }
@@ -135,26 +140,33 @@ namespace gradeapp
         private void updatesubjects()
         {
             listBox2.Items.Clear();
-            for (int i = 0; i != years[selectedyear].getsize(); i++)
-                listBox2.Items.Add(years[selectedyear].getsubject(i));
+            if (selectedyear != -1)
+                for (int i = 0; i != years[selectedyear].getsize(); i++)
+                    listBox2.Items.Add(years[selectedyear].getsubject(i).print());
         }
         private void updateexams()
         {
             listBox4.Items.Clear();
-            for (int i = 0; i != years[selectedyear].getsubject(selectedsubject).examssize(); i++)
-                listBox4.Items.Add(years[selectedyear].getsubject(selectedsubject).getexam(i));
+            if (selectedyear !=-1 && selectedsubject != -1)
+                for (int i = 0; i != years[selectedyear].getsubject(selectedsubject).examssize(); i++)
+                    listBox4.Items.Add(years[selectedyear].getsubject(selectedsubject).getexam(i).print());
         }
         private void updatecoursework()
         {
             listBox3.Items.Clear();
-            for (int i = 0; i != years[selectedyear].getsubject(selectedsubject).courseworksize(); i++)
-                listBox3.Items.Add(years[selectedyear].getsubject(selectedsubject).getcoursework(i));
+            if (selectedyear != -1 && selectedsubject != -1)
+                for (int i = 0; i != years[selectedyear].getsubject(selectedsubject).courseworksize(); i++)
+                    listBox3.Items.Add(years[selectedyear].getsubject(selectedsubject).getcoursework(i).print());
         }
 
         private void listBox2_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (listBox2.SelectedIndex >= 0 && listBox2.SelectedIndex < years[selectedyear].getsize())
+            {
                 selectedsubject = listBox2.SelectedIndex;
+                updateexams();
+                updatecoursework();
+            }
             else
                 selectedsubject = -1;
         }
@@ -188,6 +200,7 @@ namespace gradeapp
                     c.loadsubjects(ref a);
                     years.Add(c);
                 }
+                a.Close();
                 updateyear();
             }
         }
@@ -203,6 +216,7 @@ namespace gradeapp
                 {
                     years[i].savesubject(ref b);
                 }
+                b.Close();
             }
         }
     }

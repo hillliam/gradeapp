@@ -10,17 +10,7 @@ namespace gradeapp
     class year
     {
         private List<subject> subjects;
-        public string name
-        {
-            get 
-            {
-                return name;
-            }
-            set 
-            {
-                name = value;
-            }
-        }
+        private string name;
         public year()
         {
             subjects = new List<subject>();
@@ -79,6 +69,13 @@ namespace gradeapp
         {
             return name + " " + calculatepercentage();
         }
-
+        public void setname(string newname)
+        {
+            name = newname;
+        }
+        public string getname()
+        {
+            return name;
+        }
     }
 }
