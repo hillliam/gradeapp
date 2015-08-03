@@ -309,7 +309,36 @@ namespace gradeapp
         }
         private void updategrade()
         {
-
+            float[] grades = new float[6];
+            for (int i = 0; i != grades.Length; i++)
+                grades[i] = 0;
+            for (int i = 0; i != years[lastyear].getsize(); i++)
+            {
+                for (int j = 0; j != grades.Length; j++)
+                {
+                    if (grades[j] <= years[lastyear].getsubject(i).calculatepercentage())
+                    {
+                        grades[j] = years[lastyear].getsubject(i).calculatepercentage();
+                        break;
+                    }
+                }
+            }
+            for (int i = 0; i != years[lastyear1].getsize(); i++)
+            {
+                for (int j = 0; j != grades.Length; j++)
+                {
+                    if (grades[j] <= years[lastyear1].getsubject(i).calculatepercentage())
+                    {
+                        grades[j] = years[lastyear1].getsubject(i).calculatepercentage();
+                        break;
+                    }
+                }
+            }
+            float avrage = 0;
+            for (int i = 0; i != grades.Length; i++)
+                avrage += grades[i];
+            avrage /= 6;
+            label2.Text = avrage.ToString();
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -317,7 +346,8 @@ namespace gradeapp
             if (selectedyear != -1)
             {
                 lastyear = selectedyear;
-                updategrade();
+                if (lastyear != -1 && lastyear1 != -1)
+                    updategrade();
             }
             else
                 MessageBox.Show("please select a year");
@@ -328,7 +358,8 @@ namespace gradeapp
             if (selectedyear != -1)
             {
                 lastyear1 = selectedyear;
-                updategrade();
+                if (lastyear != -1 && lastyear1 != -1)
+                    updategrade();
             }
             else
                 MessageBox.Show("please select a year");
