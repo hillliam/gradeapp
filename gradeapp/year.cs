@@ -59,15 +59,29 @@ namespace gradeapp
                 float avrage = 0;
                 for (int i = 0; i != subjects.Count; i++)
                 {
+                    avrage += subjects[i].calculatepercentage();
                 }
                 return avrage;
             }
             else
                 return 0;
         }
+        public string getgrade()
+        {
+            if (calculatepercentage() > 0.70)
+                return "1";
+            else if (calculatepercentage() > 0.60)
+                return "2 1";
+            else if (calculatepercentage() > 0.50)
+                return "2 2";
+            else if (calculatepercentage() > 0.40)
+                return "pass";
+            else
+                return "fail";
+        }
         public string print()
         {
-            return name + " " + calculatepercentage();
+            return name + " " + calculatepercentage()+ " " + getgrade();
         }
         public void setname(string newname)
         {

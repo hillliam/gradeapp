@@ -12,17 +12,19 @@ namespace gradeapp
 {
     public partial class examedit : Form
     {
-        private exam theexam;
-        public examedit(ref exam it)
+        public exam theexam;
+        private int i;
+        public examedit(ref exam it, int index)
         {
             InitializeComponent();
+            i = index;
             theexam = it;
             textBox1.Text = theexam.getname();
             numericUpDown1.Value = theexam.getoverallvalue();
             textBox2.Text = theexam.getmarks().ToString();
             numericUpDown2.Value = (decimal)theexam.gettotalmarks();
             dateTimePicker1.Value = theexam.getstartdate();
-
+            dateTimePicker2.Value = theexam.getstartdate() + theexam.getduration();
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -32,6 +34,7 @@ namespace gradeapp
             theexam.setmarks(float.Parse(textBox2.Text));
             theexam.settotalmarks((float)numericUpDown2.Value);
             theexam.setstartdate(dateTimePicker1.Value);
+            theexam.setduration(dateTimePicker1.Value - dateTimePicker2.Value);
             this.Close();
         }
 

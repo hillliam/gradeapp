@@ -7,7 +7,7 @@ using System.IO;
 
 namespace gradeapp
 {
-    class exam : List<exam>
+    public class exam : List<exam>
     {
         private string name; // the name of the exam for the user
         private int overallvalue; // the vale of the exam in the subject

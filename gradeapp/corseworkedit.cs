@@ -12,10 +12,12 @@ namespace gradeapp
 {
     public partial class corseworkedit : Form
     {
-        private corsework thework;
-        public corseworkedit(ref corsework it)
+        public corsework thework;
+        private int i;
+        public corseworkedit(ref corsework it,int index)
         {
             InitializeComponent();
+            i = index;
             thework = it;
             textBox1.Text = thework.getname();
             numericUpDown1.Value = thework.getoverallvalue();

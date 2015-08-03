@@ -7,7 +7,7 @@ using System.IO;
 
 namespace gradeapp
 {
-    class corsework
+    public class corsework
     {
         private string name; // the name of the coursework for the user
         private int overallvalue; // the vale of the exam in the subject
@@ -19,6 +19,7 @@ namespace gradeapp
             value = overallvalue;
             marks = mark;
             totalmarks = totalmark;
+            duedate = DateTime.Now;
         }
         public corsework(DateTime due, string name = "", int value = 0, float mark = 0, float totalmark = 0)
         {

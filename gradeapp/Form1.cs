@@ -19,6 +19,8 @@ namespace gradeapp
         private int selectedsubject;
         private int selectedexam;
         private int selectedcoursework;
+        private int lastyear;
+        private int lastyear1;
         public Form1()
         {
             InitializeComponent();
@@ -27,6 +29,8 @@ namespace gradeapp
             selectedsubject = -1;
             selectedexam = -1;
             selectedcoursework = -1;
+            lastyear = -1;
+            lastyear1 = -1;
         }
 
         private void button5_Click(object sender, EventArgs e)
@@ -76,49 +80,111 @@ namespace gradeapp
                 updatesubjects();
             }
             else
-                MessageBox.Show("please select a subject");
+                MessageBox.Show("please select a year");
         }
 
         private void button10_Click(object sender, EventArgs e)
         {
-            years[selectedyear].removesubject(selectedsubject);
-            updatesubjects();
+            if (selectedsubject != -1)
+            {
+                years[selectedyear].removesubject(selectedsubject);
+                updatesubjects();
+            }
+            else
+                MessageBox.Show("please select a subject");
         }
 
         private void button11_Click(object sender, EventArgs e)
         {// edit coursework
-
+            if (selectedcoursework != -1)
+            {
+                corsework a = years[selectedyear].getsubject(selectedsubject).getcoursework(selectedcoursework);
+                corseworkedit b = new corseworkedit(ref a, selectedcoursework);
+                var result = b.ShowDialog();
+                if (result == System.Windows.Forms.DialogResult.Cancel)// bad logic
+                {
+                    years[selectedyear].getsubject(selectedsubject).getcoursework(selectedcoursework).setduedate(b.thework.getduedate());
+                    years[selectedyear].getsubject(selectedsubject).getcoursework(selectedcoursework).setmarks(b.thework.getmarks());
+                    years[selectedyear].getsubject(selectedsubject).getcoursework(selectedcoursework).setname(b.thework.getname());
+                    years[selectedyear].getsubject(selectedsubject).getcoursework(selectedcoursework).setoverallvalue(b.thework.getoverallvalue());
+                    years[selectedyear].getsubject(selectedsubject).getcoursework(selectedcoursework).settotalmarks(b.thework.gettotalmarks());
+                    updatecoursework();
+                    updatesubjects();
+                    updateyear();
+                }
+            }
+            else
+                MessageBox.Show("please select a coursework");
         }
 
         private void button13_Click(object sender, EventArgs e)
         {// add coursework
-            corsework a = new corsework();
-            years[selectedyear].getsubject(selectedsubject).addcoursework(a);
-            updatecoursework();
+            if (selectedsubject != -1)
+            {
+                corsework a = new corsework();
+                years[selectedyear].getsubject(selectedsubject).addcoursework(a);
+                updatecoursework();
+            }
+            else
+                MessageBox.Show("please select a subject");
         }
 
         private void button14_Click(object sender, EventArgs e)
         { // remove coursework
-            years[selectedyear].getsubject(selectedsubject).removecoursework(selectedcoursework);
-            updatecoursework();
+            if (selectedcoursework != -1)
+            {
+                years[selectedyear].getsubject(selectedsubject).removecoursework(selectedcoursework);
+                updatecoursework();
+            }
+            else
+                MessageBox.Show("please select a coursework");
         }
 
         private void button12_Click(object sender, EventArgs e)
         { // edit exam
-
+            if (selectedexam != -1)
+            {
+                exam a = years[selectedyear].getsubject(selectedsubject).getexam(selectedexam);
+                examedit b = new examedit(ref a, selectedexam);
+                var result = b.ShowDialog();
+                if (result == System.Windows.Forms.DialogResult.Cancel)
+                {
+                    years[selectedyear].getsubject(selectedsubject).getexam(selectedexam).setname(b.theexam.getname());
+                    years[selectedyear].getsubject(selectedsubject).getexam(selectedexam).setduration(b.theexam.getduration());
+                    years[selectedyear].getsubject(selectedsubject).getexam(selectedexam).setmarks(b.theexam.getmarks());
+                    years[selectedyear].getsubject(selectedsubject).getexam(selectedexam).setoverallvalue(b.theexam.getoverallvalue());
+                    years[selectedyear].getsubject(selectedsubject).getexam(selectedexam).settotalmarks(b.theexam.gettotalmarks());
+                    years[selectedyear].getsubject(selectedsubject).getexam(selectedexam).setstartdate(b.theexam.getstartdate());
+                }
+                updateexams();
+                updatesubjects();
+                updateyear();
+            }
+            else
+                MessageBox.Show("please select a exam");
         }
 
         private void button15_Click(object sender, EventArgs e)
         { // add exam
-            exam a = new exam();
-            years[selectedyear].getsubject(selectedsubject).addexam(a);
-            updateexams();
+            if (selectedsubject != -1)
+            {
+                exam a = new exam();
+                years[selectedyear].getsubject(selectedsubject).addexam(a);
+                updateexams();
+            }
+            else
+                MessageBox.Show("please select a subject");
         }
 
         private void button16_Click(object sender, EventArgs e)
         { // remove exam
-            years[selectedyear].getsubject(selectedsubject).removeexam(selectedexam);
-            updateexams();
+            if (selectedexam != -1)
+            {
+                years[selectedyear].getsubject(selectedsubject).removeexam(selectedexam);
+                updateexams();
+            }
+            else
+                MessageBox.Show("please select a exam");
         }
 
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -218,6 +284,54 @@ namespace gradeapp
                 }
                 b.Close();
             }
+        }
+
+        public void updateexam(exam item, int index)
+        {
+            exam a = years[selectedyear].getsubject(selectedsubject).getexam(index);
+            a.setduration(item.getduration());
+            a.setmarks(item.getmarks());
+            a.setname(item.getname());
+            a.setoverallvalue(item.getoverallvalue());
+            a.setstartdate(item.getstartdate());
+            a.settotalmarks(item.gettotalmarks());
+            updateexams();
+        }
+        public void updatecorsework(corsework item, int index)
+        {
+            corsework a = years[selectedyear].getsubject(selectedsubject).getcoursework(index);
+            a.setduedate(item.getduedate());
+            a.setmarks(item.getmarks());
+            a.setname(item.getname());
+            a.setoverallvalue(item.getoverallvalue());
+            a.settotalmarks(item.gettotalmarks());
+            updatecoursework();
+        }
+        private void updategrade()
+        {
+
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            if (selectedyear != -1)
+            {
+                lastyear = selectedyear;
+                updategrade();
+            }
+            else
+                MessageBox.Show("please select a year");
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            if (selectedyear != -1)
+            {
+                lastyear1 = selectedyear;
+                updategrade();
+            }
+            else
+                MessageBox.Show("please select a year");
         }
     }
 }
