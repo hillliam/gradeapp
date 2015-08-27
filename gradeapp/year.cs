@@ -37,6 +37,7 @@ namespace gradeapp
             for (int i = 0; i != numberofsubjets; i++)
             {
                 subject a = new subject();
+                a.loadname(ref reader);
                 a.loadexams(ref reader);
                 a.locadcoursework(ref reader);
                 subjects.Add(a);
@@ -47,6 +48,7 @@ namespace gradeapp
             writer.WriteLine(subjects.Count);
             for (int i = 0; i != subjects.Count; i++)
             {
+                subjects[i].savename(ref writer);
                 subjects[i].saveexams(ref writer);
                 subjects[i].savecoursework(ref writer);
             }
@@ -61,7 +63,7 @@ namespace gradeapp
                 {
                     avrage += subjects[i].calculatepercentage();
                 }
-                return avrage;
+                return avrage / total;
             }
             else
                 return 0;

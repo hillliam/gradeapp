@@ -61,11 +61,20 @@ namespace gradeapp
                 corseworks.Add(a);
             }
         }
+        public void loadname(ref StreamReader reader)
+        {
+            name = reader.ReadLine();
+        }
         public void saveexams(ref StreamWriter writer)
         {
+            writer.WriteLine(name);
             writer.WriteLine(exams.Count);
             for (int i = 0; i != exams.Count; i++)
                 exams[i].save(ref writer);
+        }
+        public void savename(ref StreamWriter writer)
+        {
+            writer.WriteLine(name);
         }
         public void savecoursework(ref StreamWriter writer)
         {
@@ -93,7 +102,7 @@ namespace gradeapp
                 }
                 for (int i = 0; i != corseworks.Count; i++)
                 {
-                    avrage += exams[i].calculateoverallpercentage();
+                    avrage += corseworks[i].calculateoverallpercentage();
                 }
                 return avrage / total;
             }

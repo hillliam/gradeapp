@@ -7,11 +7,11 @@ using System.Resources;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("gradeapp")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("an app to keep track of grades")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("gradeapp")]
-[assembly: AssemblyCopyright("")]
+[assembly: AssemblyCopyright("Copyright © liam hill 2015")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

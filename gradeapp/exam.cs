@@ -52,6 +52,10 @@ namespace gradeapp
             else
                 return marks;
         }
+        public TimeSpan calculateremaningtime()
+        {
+            return (startdate - DateTime.Now);
+        }
         public float calculateoverallpercentage()
         {
             return (calculateexampercentage() / 100) * overallvalue;
@@ -75,7 +79,7 @@ namespace gradeapp
         public string print()
         {
             if (startdate > DateTime.Now)
-                return name + " " + overallvalue + " " + startdate + " " + duration;
+                return name + " " + overallvalue + " " + startdate + " " + duration + " " + calculateremaningtime();
             else
                 return name + " " + overallvalue + " " + startdate + " " + calculateexampercentage() + calculateoverallpercentage();
         }

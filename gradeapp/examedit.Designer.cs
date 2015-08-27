@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.button1 = new System.Windows.Forms.Button();
             this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
             this.label4 = new System.Windows.Forms.Label();
@@ -42,6 +43,9 @@
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.label6 = new System.Windows.Forms.Label();
             this.dateTimePicker2 = new System.Windows.Forms.DateTimePicker();
+            this.label7 = new System.Windows.Forms.Label();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.textBox3 = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.SuspendLayout();
@@ -162,11 +166,35 @@
             this.dateTimePicker2.Size = new System.Drawing.Size(200, 20);
             this.dateTimePicker2.TabIndex = 21;
             // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(12, 226);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(77, 13);
+            this.label7.TabIndex = 22;
+            this.label7.Text = "remaining time:";
+            // 
+            // timer1
+            // 
+            this.timer1.Enabled = true;
+            this.timer1.Interval = 1000;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
+            // textBox3
+            // 
+            this.textBox3.Location = new System.Drawing.Point(91, 226);
+            this.textBox3.Name = "textBox3";
+            this.textBox3.Size = new System.Drawing.Size(200, 20);
+            this.textBox3.TabIndex = 23;
+            // 
             // examedit
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(303, 261);
+            this.Controls.Add(this.textBox3);
+            this.Controls.Add(this.label7);
             this.Controls.Add(this.dateTimePicker2);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.dateTimePicker1);
@@ -206,5 +234,8 @@
         private System.Windows.Forms.DateTimePicker dateTimePicker1;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.DateTimePicker dateTimePicker2;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.TextBox textBox3;
     }
 }

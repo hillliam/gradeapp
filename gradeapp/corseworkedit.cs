@@ -32,13 +32,18 @@ namespace gradeapp
             thework.setoverallvalue((int)numericUpDown1.Value);
             thework.setmarks(float.Parse(textBox2.Text));
             thework.settotalmarks((float)numericUpDown2.Value);
-            dateTimePicker1.Value = thework.getduedate();
+            thework.setduedate(dateTimePicker1.Value);
             this.Close();
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            textBox3.Text = thework.calculateremaningtime().ToString();
         }
     }
 }
