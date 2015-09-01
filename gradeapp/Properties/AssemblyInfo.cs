@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿// Copyright © Liam hill 2015
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Resources;
@@ -11,7 +12,7 @@ using System.Resources;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("gradeapp")]
-[assembly: AssemblyCopyright("Copyright © liam hill 2015")]
+[assembly: AssemblyCopyright("Copyright © Liam hill 2015")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
